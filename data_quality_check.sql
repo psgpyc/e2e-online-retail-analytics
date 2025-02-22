@@ -280,6 +280,37 @@ HAVING COUNT(customer_id) = 0;
 --- NO customers with 0 orders
 
 
+---------------------------------------------------------------- DESCRIPTION
+
+SELECT 
+	*
+FROM staging_source_table
+WHERE
+	description IS NULL;
+
+--- For all canceled orders, the descriptions has been omitted.
+--- Our analysis doesnot involve description, therefore I am imputing these description with 'cancelled orders do not have description'
+
+UPDATE staging_source_table
+SET
+	description = 'cancelled orders do not have description'
+WHERE
+	description IS NULL AND is_cancelled=TRUE;
+
+--- check if worked
+SELECT 
+	*
+FROM staging_source_table
+WHERE
+	description IS NULL;
+
+--- NO more nulls in description
+
+
+
+
+
+
 
 
 
