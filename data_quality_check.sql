@@ -102,7 +102,6 @@ WHERE
 	unit_price <= 0;
 
 --- There are thousands of rows with unit price = 0, and looks like these are for cancelled orders.
-
 --- Lets, see if orders that were not cancelled have unit price set to 0
 
 
@@ -113,9 +112,8 @@ FROM
 WHERE 
 	unit_price <= 0 AND is_cancelled = FALSE;
 
---- Shit! we do have 1180 rows with unit_price = 0, for is_cancelled = False
-
---- Let us look for distinct products with with unit_price = 0, for is_cancelled = False
+--- We do have 1180 rows with unit_price = 0, for is_cancelled = False
+--- Let us look for distinct products with unit_price = 0, for is_cancelled = False
 
 
 SELECT 
@@ -127,6 +125,7 @@ WHERE
 
 --- 683 distinct products with unit_price = 0
 --- Let see if we have prices for these stock codes
+
 
 SELECT 
 	DISTINCT ON(stock_code)
@@ -160,7 +159,7 @@ FROM
 WHERE 
 	unit_price <= 0 AND is_cancelled = FALSE	
 
---- Looking at the data, most of unit_price == 0.00 are from customer_id which were NULL and we set to 00000. Also, escription suggests they were adjustments, bank charges, 
+--- Looking at the data, most of unit_price == 0.00 are from customer_id which were NULL and we set to 00000. Also, description suggests they were adjustments, bank charges, 
 --- Lets drop all the unit_price == 0 for customer_id = 00000
 
 
@@ -192,14 +191,100 @@ WHERE
 -- Let us check
 
 SELECT 
-	*
+	DISTINCT(invoice_no)
 FROM
 	staging_source_table
 WHERE 
 	unit_price <= 0 AND is_cancelled = FALSE	
 
 
---- NOW we have 37 rows
+--- NOW we have 37 rows and 31 distinc invoice number
 --- We can now possibly impute with mean.
+
+WITH avg_unit_price_calculated AS (
+SELECT 
+	invoice_no,
+	ROUND(AVG(unit_price), 2) avg_unit_price
+FROM 
+	staging_source_table
+WHERE
+	invoice_no IN (
+		SELECT 
+			invoice_no
+		FROM
+			staging_source_table
+		WHERE 
+			unit_price <= 0 AND is_cancelled = FALSE)
+	
+GROUP BY invoice_no
+)
+UPDATE staging_source_table AS sst
+SET
+	unit_price = aupc.avg_unit_price
+FROM 
+	(SELECT * FROM avg_unit_price_calculated) AS aupc
+WHERE 
+	sst.unit_price <= 0 AND sst.is_cancelled = FALSE AND sst.invoice_no = aupc.invoice_no
+
+---- DROP THE REMAINING UNIT_PRICE = 0
+
+DELETE FROM staging_source_table
+WHERE 
+	unit_price <= 0 AND is_cancelled = FALSE	
+
+
+
+SELECT 
+	COUNT(*)
+FROM
+	staging_source_table
+WHERE 
+	unit_price <= 0 AND is_cancelled=FALSE;
+
+--- OUTPUTS ZERO
+--- ONLY remaining 0.00 for unit_price is for cancelled orders.
+
+
+SELECT * FROM staging_source_table;
+
+
+----------------------------------------------------------------- Invalid Invoice Date
+
+SELECT 
+	*
+FROM 
+	staging_source_table
+WHERE invoice_date IS NULL;
+-- NO NUlls
+
+SELECT
+	MIN(invoice_date),
+	MAX(invoice_date)
+FROM
+	staging_source_table;
+
+-- Dates within the range
+
+
+----------------------------------------------------------------- Invalid Invoice Date
+
+SELECT
+	customer_id,
+	COUNT(customer_id),
+	
+FROM
+	staging_source_table
+GROUP BY customer_id
+HAVING COUNT(customer_id) = 0;
+
+--- NO customers with 0 orders
+
+
+
+
+
+
+
+
 
 
