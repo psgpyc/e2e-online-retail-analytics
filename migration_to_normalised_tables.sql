@@ -141,8 +141,3 @@ SELECT
 	invoice_no, stock_code, quantity, unit_price
 FROM
 	staging_source_table
-	
-SELECT 
-	*
-FROM
-	staging_source_table
