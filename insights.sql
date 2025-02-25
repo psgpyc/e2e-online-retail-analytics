@@ -294,6 +294,41 @@ FROM
 	month_vs_prev_month;
 
 
+--------------------------------------------------------------- REVENUE LOST MONTH OVER MONTH
+
+WITH month_by_month_rev_lost AS (
+SELECT
+	TO_CHAR(DATE_TRUNC('months', i.invoice_date), 'YYYY-MM-DD') AS curr_month,
+	SUM(ii.quantity * ii.unit_price) AS curr_month_rev_lost 
+FROM
+	invoice_items ii
+JOIN
+	invoices i
+ON
+	i.invoice_no = ii.invoice_no
+WHERE
+	i.is_cancelled = TRUE
+GROUP BY
+	DATE_TRUNC('months', i.invoice_date)
+ORDER BY
+	DATE_TRUNC('months', i.invoice_date)),
+month_vs_prev_month AS (
+SELECT 
+	curr_month, 
+	curr_month_rev_lost,
+	LAG(curr_month_rev_lost) OVER(ORDER BY curr_month) AS prev_month_rev_lost
+FROM 
+	month_by_month_rev_lost)
+SELECT
+	curr_month, 
+	ABS(curr_month_rev_lost), 
+	COALESCE(ABS(prev_month_rev_lost), 0) AS prev_month_rev_lost,
+	COALESCE(ROUND(((ABS(curr_month_rev_lost) - ABS(prev_month_rev_lost))/(ABS(prev_month_rev_lost)))*100,2), 0) AS rev_lost_change
+FROM
+	month_vs_prev_month;
+
+
+
 
 
 
