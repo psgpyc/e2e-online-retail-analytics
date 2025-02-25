@@ -321,11 +321,13 @@ FROM
 	month_by_month_rev_lost)
 SELECT
 	curr_month, 
-	ABS(curr_month_rev_lost), 
+	ABS(curr_month_rev_lost) AS current_month_revenue_lost, 
 	COALESCE(ABS(prev_month_rev_lost), 0) AS prev_month_rev_lost,
 	COALESCE(ROUND(((ABS(curr_month_rev_lost) - ABS(prev_month_rev_lost))/(ABS(prev_month_rev_lost)))*100,2), 0) AS rev_lost_change
 FROM
 	month_vs_prev_month;
+
+
 
 
 
