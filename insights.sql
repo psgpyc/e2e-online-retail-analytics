@@ -43,7 +43,6 @@ ORDER BY
 
 --- customer 14911 placed a total of 248 orders.
 
-
 --- Calculate avg. order count, standard deviation and median of orders by customers.
 
 WITH customer_order_volume AS (
@@ -63,7 +62,7 @@ SELECT
 FROM
 	customer_order_volume	
 
--- On average a customer places around 5 orders.
+-- On average a customer places around 5 orders. Excluding orders from customer_id = '00000'
 -- Median is 3, this suggest our data is right skewed.
 
 
@@ -199,6 +198,103 @@ WHERE
 	ii.invoice_no = '573585';
 
 -- The order was placed by customer_id 00000, on 2011-10-31 14:41:00. There is nothing wrong with this.
+
+
+---- Order value invoices
+
+SELECT
+	invoice_no,
+	SUM(quantity) AS total_qunatity_ordered,
+	SUM(quantity * unit_price) AS order_value
+FROM
+	invoice_items
+GROUP BY
+	invoice_no
+HAVING 
+	SUM(quantity * unit_price) > 0
+ORDER BY
+	SUM(quantity * unit_price) DESC;
+
+-- Our largest order on a single invoice is of 168469.
+
+
+--- Total revenue
+WITH invoice_order_value AS (
+SELECT
+	invoice_no,
+	SUM(quantity * unit_price) AS order_value
+FROM
+	invoice_items
+GROUP BY
+	invoice_no
+HAVING 
+	SUM(quantity * unit_price) > 0 )
+SELECT 
+	SUM(order_value) AS total_revenue
+FROM 
+	invoice_order_value
+WHERE	
+	order_value > 0;
+-- Our total revenue is 10,643,627.27
+
+-- Lost Revenue
+
+WITH invoice_order_value AS (
+SELECT
+	invoice_no,
+	SUM(quantity * unit_price) AS order_value
+FROM
+	invoice_items
+GROUP BY
+	invoice_no
+HAVING 
+	SUM(quantity * unit_price) < 0 )
+SELECT 
+	ABS(SUM(order_value)) AS lost_revenue
+FROM 
+	invoice_order_value
+WHERE	
+	order_value < 0;
+
+-- We lost 893,979.73 
+
+	
+
+--------------------------------------------------------------- REVENUE MONTH OVER MONTH
+
+WITH month_by_month_rev AS (
+SELECT
+	TO_CHAR(DATE_TRUNC('months', i.invoice_date), 'YYYY-MM-DD') AS curr_month,
+	SUM(ii.quantity * ii.unit_price) AS curr_month_rev 
+FROM
+	invoice_items ii
+JOIN
+	invoices i
+ON
+	i.invoice_no = ii.invoice_no
+WHERE
+	i.is_cancelled = FALSE
+GROUP BY
+	DATE_TRUNC('months', i.invoice_date)
+ORDER BY
+	DATE_TRUNC('months', i.invoice_date)),
+month_vs_prev_month AS (
+SELECT 
+	curr_month, 
+	curr_month_rev,
+	LAG(curr_month_rev) OVER(ORDER BY curr_month) AS prev_month_rev
+FROM 
+	month_by_month_rev)
+SELECT
+	curr_month, 
+	curr_month_rev, 
+	COALESCE(prev_month_rev, 0) AS prev_month_rev,
+	COALESCE(ROUND(((curr_month_rev - prev_month_rev)/(prev_month_rev))*100,2), 0) AS rev_growth
+FROM
+	month_vs_prev_month;
+
+
+
 
 
 
