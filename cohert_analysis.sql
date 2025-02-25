@@ -29,5 +29,3 @@ GROUP BY cohort_month, months_since_first_purchase
 ORDER BY cohort_month, months_since_first_purchase;
 
 
-SELECT
-	DATE_PART('month', DATE '2024-12-10') 

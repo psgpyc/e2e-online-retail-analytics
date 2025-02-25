@@ -1,3 +1,5 @@
+--- RFM Segmentation
+
 WITH customers_orders AS (
 	SELECT
 		i.customer_id,
