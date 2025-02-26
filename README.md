@@ -85,6 +85,7 @@ This case study outlines an end-to-end data analysis project using the UCI Onlin
   - An overall RFM score was computed by summing the three individual scores.
   - Segments such as "Champions" (5-5-5) and "At Risk" were defined based on these scores.
   
+  <img src='./img/rfm_segm.png' width='500'>
 - **Outcome:**  
   This segmentation enabled targeted marketing strategies, allowing the business to focus on loyal customers while designing re-engagement plans for at-risk segments.
 
