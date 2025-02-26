@@ -51,6 +51,9 @@ This case study outlines an end-to-end data analysis project using the UCI Onlin
   - Some customers placed hundreds of orders (e.g., customer 14911 placed 248 orders).
   - Statistical measures indicated an average of 5 orders per customer and a median of 3, suggesting a right-skewed distribution.
 
+  <img src='./img/total_orders_c_vs_p.png' width='500'>
+
+
 ### Invoice and Revenue Analysis
 
 - **Invoice Trends:**  
@@ -59,10 +62,16 @@ This case study outlines an end-to-end data analysis project using the UCI Onlin
 - **Cancellation Metrics:**  
   Overall, 20.58% of orders were cancelled. A deeper month-over-month breakdown revealed a peak cancellation rate of 25.48% in April 2011 and significant variations across the year.
 
+
+  <img src='./img/total_vs_cancelled_orders.png' width='500'>
+
 - **Revenue Performance:**  
   - Total revenue from non-cancelled orders was calculated at approximately 10.64M.
   - Lost revenue due to cancellations amounted to roughly 894K.
   - Time-series analysis provided insights into revenue trends and highlighted anomalies such as a drastic drop in December 2011.
+
+    <img src='./img/rev_current_vs_prev.png' width='500'>
+
 
 ## Advanced Analytics
 
