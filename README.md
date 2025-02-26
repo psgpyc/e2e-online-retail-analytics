@@ -4,7 +4,7 @@
 
 This case study outlines an end-to-end data analysis project using the UCI Online Retail dataset. The primary objective was to transform raw transactional data into actionable business insights through rigorous data cleaning, exploratory analysis, and advanced analytics. The project leveraged SQL for data manipulation and Python (with Pandas, Seaborn, and Matplotlib) for visualization. Key advanced analytical techniques applied include RFM segmentation, cohort analysis, and market basket analysis.
 
-## Data Ingestion and Transformation
+## [Data Ingestion and Transformation](preprocessing/load_and_transform/migration_to_normalised_tables.sql)
 
 - **Data Source:**  
   The dataset originated as an XLSX file containing online retail transactions. A Python script was used to convert the XLSX file to CSV, which was then imported into a PostgreSQL staging table.
@@ -12,7 +12,7 @@ This case study outlines an end-to-end data analysis project using the UCI Onlin
 - **Staging Process:**  
   The raw data was loaded into a staging table where initial transformations were applied. Missing `customer_id` values were imputed with a placeholder (e.g., `00000`) to ensure consistency for downstream analysis.
 
-## Data Quality Checks and Cleaning
+## [Data Quality Checks and Cleaning](preprocessing/data_quality_check.sql)
 
 - **Duplicate Removal:**  
   Duplicate rows were identified and removed from the staging table to prevent skewing analysis.
@@ -37,7 +37,7 @@ This case study outlines an end-to-end data analysis project using the UCI Onlin
 - **Final Outcome:**  
   The resulting clean dataset in the staging area provided a robust foundation for advanced analytics.
 
-## Exploratory Data Analysis (EDA)
+## [Exploratory Data Analysis (EDA)](EDA/eda.ipynb)
 
 ### Customer Insights
 
@@ -75,7 +75,7 @@ This case study outlines an end-to-end data analysis project using the UCI Onlin
 
 ## Advanced Analytics
 
-### RFM Analysis
+### [RFM Analysis](Analysis/rfm_analysis.sql)
 
 - **Objective:**  
   Segment customers based on Recency, Frequency, and Monetary values to identify high-value and at-risk segments.
@@ -86,10 +86,15 @@ This case study outlines an end-to-end data analysis project using the UCI Onlin
   - Segments such as "Champions" (5-5-5) and "At Risk" were defined based on these scores.
   
   <img src='./img/rfm_segm.png' width='500'>
+
+  	- “Champions” (7.93%) are your best-performing customers—recent, high frequency, and high spending.
+    - “Less Frequent but Loyal” (24.55%) represents customers who consistently return, albeit less frequently.
+	- “At Risk” (26.00%) customers might need targeted re-engagement strategies, as they have lower scores in recency, frequency, or monetary value.
+    - “Returning and Loyal” (20.82%) and “Dormant” (20.70%) segments provide additional context on customer behavior that can help tailor marketing efforts.
 - **Outcome:**  
   This segmentation enabled targeted marketing strategies, allowing the business to focus on loyal customers while designing re-engagement plans for at-risk segments.
 
-### Cohort Analysis
+### [Cohort Analysis](Analysis/cohert_analysis.sql)
 
 - **Objective:**  
   Group customers by the month of their first purchase to understand retention and loyalty over time.
@@ -97,11 +102,13 @@ This case study outlines an end-to-end data analysis project using the UCI Onlin
 - **Methodology:**  
   - The first purchase date for each customer was determined, and customers were grouped into cohorts based on this date.
   - Subsequent purchase behavior was tracked month-over-month to assess retention.
+
+  <img src='./img/cohort.png' width='500'>
   
 - **Outcome:**  
   The cohort analysis provided insights into customer lifetime value and retention trends, identifying periods with higher churn or improved loyalty.
 
-### Market Basket Analysis
+### [Market Basket Analysis](Analysis/cohert_analysis.sql)
 
 - **Objective:**  
   Identify products that are frequently purchased together to uncover cross-selling opportunities.
@@ -117,7 +124,7 @@ This case study outlines an end-to-end data analysis project using the UCI Onlin
 ### Time-Series Analysis & Forecasting
 
 - **Objective:**  
-  Forecast future sales trends and understand seasonality.
+  Forecast future sales trends and understand seasonality
   
 - **Methodology:**  
   - Sales data was aggregated on a monthly basis using SQL.
