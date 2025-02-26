@@ -54,19 +54,7 @@ This project involves transforming and analyzing the UCI Online Retail dataset. 
    - The cleaned dataset now contains 37 rows and 31 distinct invoice numbers.
    - The dataset is robust and ready for further advanced analytics.
 
-## Summary of Data Quality Process
 
-- **Data Ingestion:**  
-  - Converted XLSX to CSV and loaded the data into a staging table.
-- **Data Cleaning:**  
-  - Imputed missing `customer_id` values.
-  - Removed duplicate rows.
-  - Flagged cancelled orders using negative quantity values.
-  - Dropped irrelevant rows (those with null `customer_id` and stock codes like `M`, `B`, `BANK CHARGES`).
-  - Imputed missing values with the mean, ensuring consistency.
-  - Imputed missing descriptions for cancelled orders.
-  - Confirmed date integrity.
-- **Final Outcome:**  
   - A cleaned dataset with 37 rows and 31 distinct invoices.
   - Only cancelled orders have a `unit_price` of 0, which is expected.
 
