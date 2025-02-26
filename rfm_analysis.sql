@@ -30,10 +30,37 @@ rfm_calculation AS (
 		NTILE(5) OVER (ORDER BY monetary) AS monetary_score
 	FROM
 		customers_orders
-)
+), rfm_score AS (
 SELECT
-	*
+
+	customer_id, 
+	recency_score, 
+	frequency_score, 
+	monetary_score,
+	(recency_score+frequency_score+monetary_score) AS overall_rfm_score
 FROM
-	rfm_calculation;
+	rfm_calculation),
+segments AS (	
+SELECT
+	customer_id, 
+	overall_rfm_score, 
+	CASE
+		WHEN recency_score = 5 AND frequency_score = 5 AND monetary_score = 5 THEN 'Champions'
+		WHEN overall_rfm_score >= 12 THEN 'Returning and Loyal'
+		WHEN overall_rfm_score >= 9 THEN 'Less Frequent but Loyal'
+		WHEN overall_rfm_score >= 6 THEN 'At Risk'
+		ELSE 'Dormant'
+	END AS customer_segment
+FROM rfm_score)
+SELECT
+	customer_segment,
+	COUNT(*) AS customer_count,
+	ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM segments), 2) AS segment_percentage
+FROM
+	segments
+GROUP BY 
+	customer_segment;
+		
+	
 	
 
