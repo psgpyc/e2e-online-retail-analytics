@@ -24,6 +24,7 @@ This case study outlines an end-to-end data analysis project using the UCI Onlin
   - Initially, 1,180 rows had a `unit_price` of 0, spread across 683 distinct products.
   - Further investigation revealed that some rows with stock codes such as `M` (Manual), `B` (Adjust bad dept), and `BANK CHARGES` (Bank_charges) were not relevant to consumer transaction analysis.
   - These rows, along with rows where `customer_id` was null, were dropped (1,134 rows removed), leaving 46 rows for further consideration.
+  - The remaining rows were filled using mean value imputation strategy.
   - After cleaning, the only remaining instances of `unit_price = 0` were for cancelled orders.
   - Remaining anomalies were imputed using the mean value, ensuring that revenue calculations were accurate.
 
@@ -34,7 +35,7 @@ This case study outlines an end-to-end data analysis project using the UCI Onlin
   All invoice dates were checked for validity, confirming no anomalies in the time dimension.
 
 - **Final Outcome:**  
-  The resulting clean dataset in the staging area contained 37 rows and 31 distinct invoice numbers, providing a robust foundation for advanced analytics.
+  The resulting clean dataset in the staging area provided a robust foundation for advanced analytics.
 
 ## Exploratory Data Analysis (EDA)
 
@@ -109,7 +110,6 @@ This case study outlines an end-to-end data analysis project using the UCI Onlin
 - **Methodology:**  
   - Sales data was aggregated on a monthly basis using SQL.
   - The aggregated data was exported and analyzed in Python using libraries such as Pandas, Seaborn, and Matplotlib.
-  - Forecasting models (e.g., ARIMA, Prophet) were applied to predict future revenue trends.
   
 - **Outcome:**  
   These predictive insights assist in inventory planning and strategic marketing, preparing the business to anticipate seasonal fluctuations.
@@ -125,4 +125,4 @@ This end-to-end analysis of the UCI Online Retail dataset demonstrates the full 
   EDA revealed key customer behaviors, invoice trends, and revenue patterns.
 
 - **Advanced Analytics:**  
-  Through RFM segmentation, cohort analysis, and market basket analysis, actionable insights were derived to inform business strategy. Time-series forecasting further enhances strategic planning.
+  Through RFM segmentation, cohort analysis, and market basket analysis, actionable insights were derived to inform business strategy.
