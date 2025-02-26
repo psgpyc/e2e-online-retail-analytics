@@ -44,6 +44,8 @@ This case study outlines an end-to-end data analysis project using the UCI Onlin
 - **Unique Customer Count:**  
   SQL queries revealed a total of 4,372 unique customers, with a notable 90% hailing from the UK.
 
+  <img src='./img/customers_by_countries.png' width=500>
+
 - **Order Volume Analysis:**  
   By excluding placeholder `customer_id` ('00000'), the analysis showed:
   - Some customers placed hundreds of orders (e.g., customer 14911 placed 248 orders).
