@@ -1,6 +1,6 @@
 
 -- CREATING A TABLE TO LOAD raw, unmodified dataset from the CSV file
-
+DROP TABLE staging_source_table;
 CREATE TABLE staging_source_table (
 	id SERIAL PRIMARY KEY, 
 	invoice_no VARCHAR(20) NOT NULL,
