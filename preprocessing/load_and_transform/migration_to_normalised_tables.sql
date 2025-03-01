@@ -2,7 +2,7 @@
 --- CREATING NORMALISED TABLE
 
 ------------------------------------------------------------------------- CUSTOMER TABLE
-
+DROP TABLE customers CASCADE;
 CREATE TABLE customers
 (
 	id VARCHAR(20) PRIMARY KEY, 
@@ -124,8 +124,8 @@ FROM
 	staging_source_table
 	
 
-
-CREATE TABLE invoice_items (
+DROP TABLE invoice_items;
+CREATE TABLE invoice_items; (
 	invoice_item_id SERIAL PRIMARY KEY, 
 	invoice_no VARCHAR(20),
 	stock_code VARCHAR(20),
@@ -141,3 +141,7 @@ SELECT
 	invoice_no, stock_code, quantity, unit_price
 FROM
 	staging_source_table
+
+
+
+
