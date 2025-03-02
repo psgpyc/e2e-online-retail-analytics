@@ -4,6 +4,8 @@ __pycache__/
 *$py.class
 
 .DS_Store
+.~retail_analysis_dash__2286.twbr
+
 
 # C extensions
 *.so
