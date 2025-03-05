@@ -113,6 +113,7 @@ This case study outlines an end-to-end data analysis project using the UCI Onlin
 
 ### [Market Basket Analysis](Analysis/cohert_analysis.sql)
 
+
 - **Objective:**  
   Identify products that are frequently purchased together to uncover cross-selling opportunities.
   
@@ -120,6 +121,9 @@ This case study outlines an end-to-end data analysis project using the UCI Onlin
   - A self-join on the `invoice_items` table was performed, pairing products within the same invoice.
   - A condition (`a.stock_code < b.stock_code`) was applied to ensure each unique product pair was counted only once.
   - Co-occurrence counts were aggregated and filtered to highlight significant product associations.
+ 
+  <img width="1158" alt="image" src="https://github.com/user-attachments/assets/5c5fe1ca-4f91-4589-b64a-84deeb36684f" />
+
   
 - **Outcome:**  
   This analysis revealed product pairings that could be used to optimize product recommendations and design bundled promotions.
