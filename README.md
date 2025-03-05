@@ -1,5 +1,8 @@
 # Case Study: End-to-End Analysis of UCI Online Retail Data
 
+<img width="1149" alt="image" src="https://github.com/user-attachments/assets/bc854158-fd47-483c-8d8c-7c69837057d2" />
+
+
 ## Introduction
 
 This case study outlines an end-to-end data analysis project using the UCI Online Retail dataset. The primary objective was to transform raw transactional data into actionable business insights through rigorous data cleaning, exploratory analysis, and advanced analytics. The project leveraged SQL for data manipulation and Python (with Pandas, Seaborn, and Matplotlib) for visualization. Key advanced analytical techniques applied include RFM segmentation, cohort analysis, and market basket analysis.
