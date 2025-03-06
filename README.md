@@ -7,7 +7,7 @@ This case study outlines an end-to-end data analysis project using the UCI Onlin
 
 ## [Dashboard](https://public.tableau.com/app/profile/paritosh.sharma.ghimire/viz/retail_analysis_dash/DashboardLanding)
 
-![image](https://github.com/user-attachments/assets/01eb3e89-6eaf-418b-bb88-085845e2d8d7)
+![image](https://github.com/user-attachments/assets/09afe4c1-e2e5-4fc5-930c-af12e0bc116b)
 
 
 
