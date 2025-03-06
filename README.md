@@ -1,4 +1,4 @@
-# Case Study: End-to-End Analysis of UCI Online Retail Data
+# Case Study: End-to-End Analysis of eCommerce Retail Data using RFM Segmentation, Cohort Analysis & Market Basket Analysis
 
 ## Introduction
 
