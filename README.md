@@ -5,7 +5,7 @@
 This case study outlines an end-to-end data analysis project using the UCI Online Retail dataset. The primary objective was to transform raw transactional data into actionable business insights through rigorous data cleaning, exploratory analysis, and advanced analytics. The project leveraged SQL for data manipulation and Python (with Pandas, Seaborn, and Matplotlib) for visualization. Key advanced analytical techniques applied include RFM segmentation, cohort analysis, and market basket analysis.
 
 
-## [Dashboard]
+## [Dashboard](https://public.tableau.com/app/profile/paritosh.sharma.ghimire/viz/retail_analysis_dash/DashboardLanding)
 
 ![image](https://github.com/user-attachments/assets/01eb3e89-6eaf-418b-bb88-085845e2d8d7)
 
